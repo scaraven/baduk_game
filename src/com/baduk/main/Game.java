@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 public class Game extends JPanel{
 
 	/**
-	 * Top left corner is at 15,15
+	 * Top left corner is at 16,16
 	 * Line x,y difference is 26
 	 * 
 	 */
@@ -29,16 +29,22 @@ public class Game extends JPanel{
 	
 	private static int WIDTH=500,HEIGHT=500;
 	private Handler handler;
-	private Liberties lib;
+	private Group group;
 	
 	public Game(){
+		group = new Group();
+		handler = new Handler(group);
 		
-		handler = new Handler();
-		lib = new Liberties(handler,this);
 		new Window(this);
 		
-		this.addMouseListener(new MouseListen(handler,this));
-		this.addMouseMotionListener(new MouseMove(handler,this));
+		this.addMouseListener(new MouseListen(handler,this,group));
+		
+		//TODO: Add new handler class for the rectangle and make it more efficient
+		//this.addMouseMotionListener(new MouseMove(handler,this));
+		
+		for(int i=3;i<7;i++) {
+			handler.add(new BlackStone(3*26+16,i*26+16,ID.BLACK,this));
+		}
 		
 		
 	}

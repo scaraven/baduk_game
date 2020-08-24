@@ -20,6 +20,9 @@ public class Rect extends GameObject{
 		g.fillRect((int)x-6,(int)y-6,12,12);
 		
 	}
+	public ID getID() {
+		return id;
+	}
 
 
 }
