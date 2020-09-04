@@ -12,13 +12,11 @@ public class Group {
 	private ArrayList<ArrayList<Integer>>keeper;
 	
 	public Group() {
-		coord = init2DList(rows,rows,coord);
+		coord = init2DList(rows,rows);
 	}
 	//returns group given a co-ord of one stone;
-	public ArrayList<ArrayList<Integer>> getGroup(float bx,float by){
+	public ArrayList<ArrayList<Integer>> getGroup(int x, int y){
 		//transform point to coord
-		int x = (int) Math.round((bx - 16)/26);
-		int y = (int) Math.round((by-16)/26);
 		int nx = x,ny = y;
 		int a =0,b=0;
 		
@@ -45,7 +43,10 @@ public class Group {
 					a = i*2-1; // a = 1 or -1
 					b = 0;
 					}
-				if(coord.get(x+a).get(y+b) == value) {
+				if(x+a < 0 || x+a > 18 || y+b < 0 || y+b > 18) {
+					
+				}
+				else if(coord.get(x+a).get(y+b) == value) {
 					//if the stone is not in the group
 					if(!checkGroup(x+a,y+b,group)) {
 						//this boolean means that a stone not part of the group array has been found
@@ -150,8 +151,8 @@ public class Group {
 		ArrayList<ArrayList<Integer>> t1 = new ArrayList<>();
 		ArrayList<ArrayList<Integer>> t2 = new ArrayList<>();
 		
-		init2DList(u.size(),u.get(0).size(), t1);
-		init2DList(u.size(),u.get(0).size(), t2);
+		t1 = init2DList(u.size(),u.get(0).size());
+		t2 = init2DList(u.size(),u.get(0).size());
 		if(u.size()== 1) {
 			return u;
 		}
@@ -255,7 +256,8 @@ public class Group {
 		return u;
 		
 	}
-	private ArrayList<ArrayList<Integer>> init2DList(int num1,int num2, ArrayList<ArrayList<Integer>> coord) {
+	public ArrayList<ArrayList<Integer>> init2DList(int num1,int num2) {
+		ArrayList<ArrayList<Integer>> coord = new ArrayList<>();
 		for(int i=0;i<num1;i++) {
 			coord.add(new ArrayList<Integer>());
 			for(int j=0;j<num2;j++) coord.get(i).add(0);
@@ -271,7 +273,7 @@ public class Group {
 	public ArrayList<ArrayList<Integer>> getCoord(){
 		return coord;
 	}
-	public void removeCoord(float bx, float by ,int index) {
+	public void removeCoord(float bx, float by) {
 		int x = convertPointToCoord(bx);
 		int y = convertPointToCoord(by);
 		coord.get(x).set(y,0);
@@ -279,5 +281,17 @@ public class Group {
 	public int convertPointToCoord(float bx) {
 		int x  = Math.round((bx-16)/26);
 		return x;
+	}
+	public float convertCoordToPoint(int x) {
+		float bx = (x*26)+16;
+		return bx;
+	}
+	public ArrayList<ArrayList<Integer>> getWritableCoord(ArrayList<ArrayList<Integer>> a ){
+		for(int i=0;i<coord.size();i++) {
+			for(int j=0;j<coord.get(0).size();j++) {
+				a.get(i).set(j, coord.get(i).get(j));
+			}
+		}
+		return a;
 	}
 }
