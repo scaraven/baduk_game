@@ -1,9 +1,6 @@
 package com.baduk.main;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
-
-import javax.swing.JLabel;
 
 public abstract class GameObject{
 	

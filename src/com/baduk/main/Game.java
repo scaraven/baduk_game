@@ -2,11 +2,14 @@ package com.baduk.main;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
@@ -18,7 +21,7 @@ import javax.swing.JPanel;
  Add capturing system
  */
 
-public class Game extends JPanel{
+public class Game extends JPanel implements ActionListener{
 
 	/**
 	 * Top left corner is at 16,16
@@ -31,15 +34,29 @@ public class Game extends JPanel{
 	private Handler handler;
 	private Group group;
 	private Capture cap;
+	private MouseListen mouse;
+	
+	private JButton pbutton;
+	
+	public int pass_count = 0;
 	
 	public Game(){
+		pbutton = new JButton("Pass");
+		pbutton.setBounds(600,50,100,25);
+		pbutton.setActionCommand("pass");
+		
+		
 		group = new Group();
 		handler = new Handler(group);
 		cap = new Capture(handler,group);
 		
 		new Window(this);
+		this.add(pbutton);
+		System.out.println(this.getWidth());
 		
-		this.addMouseListener(new MouseListen(handler,this,group,cap));
+		mouse = new MouseListen(handler,this,group,cap);
+		this.addMouseListener(mouse);
+		pbutton.addActionListener(this);
 		
 		//TODO: Add new handler class for the rectangle and make it more efficient
 		//this.addMouseMotionListener(new MouseMove(handler,this));
@@ -73,6 +90,16 @@ public class Game extends JPanel{
 	public void render(Graphics g) {
 		handler.render(g);
 		
+	}
+	public void actionPerformed(ActionEvent e) {
+		pass_count += 1;
+		if(pass_count == 2) {
+			System.out.println("Game finished!");
+			System.exit(1);
+		} else {
+			boolean turn = !mouse.getTurn();
+			mouse.setTurn(turn);
+		}
 	}
 	
 }
