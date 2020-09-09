@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -37,18 +38,28 @@ public class Game extends JPanel implements ActionListener{
 	private MouseListen mouse;
 	
 	private JButton pbutton;
+	private JLabel JBCap,JWCap;
 	
 	public int pass_count = 0;
 	
+	//bcap = number of black stones captured by white
+	public int bcap = 0 ,wcap = 0;
+	
+	
 	public Game(){
+		bcap = 0;
+		wcap = 0;
+		
+		
 		pbutton = new JButton("Pass");
-		pbutton.setBounds(600,50,100,25);
+		pbutton.setBounds(525,50,100,25);
 		pbutton.setActionCommand("pass");
+		
 		
 		
 		group = new Group();
 		handler = new Handler(group);
-		cap = new Capture(handler,group);
+		cap = new Capture(handler,group, this);
 		
 		new Window(this);
 		this.add(pbutton);

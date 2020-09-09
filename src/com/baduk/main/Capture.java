@@ -2,6 +2,8 @@ package com.baduk.main;
 
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+
 public class Capture {
 	private Handler handler;
 	private Game game;
@@ -9,14 +11,29 @@ public class Capture {
 	
 	private ArrayList<ArrayList<Integer>> woc, c,boc;
 	
+	private int bcap,wcap = 0;
+	private JLabel JBCap,JWCap;
 	
-	public Capture(Handler handler, Group group) {
+	
+	public Capture(Handler handler, Group group, Game game) {
 		this.group = group;
 		this.handler = handler;
+		this.game = game;
 		
 		boc = group.init2DList(19, 19);
 		woc = group.init2DList(19, 19);
 		c = group.init2DList(19, 19);
+		
+		JBCap = new JLabel();
+		JBCap.setBounds(550,100, 100,25);
+		JBCap.setText("Black captures: "+bcap);
+		
+		JWCap = new JLabel();
+		JWCap.setBounds(550,150,100,25);
+		JWCap.setText("White captures: "+wcap);
+		
+		game.add(JWCap);
+		game.add(JBCap);
 	}
 	//returns the coord of stone which is in the group to be captured - otherwise it returns null
 	public Pair isCaptured(float bx,float by,int value) {
@@ -24,7 +41,7 @@ public class Capture {
 			int x = group.convertPointToCoord(bx);
 			int y = group.convertPointToCoord(by);
 			ArrayList<ArrayList<Integer>> coord = group.getCoord();
-			ArrayList<ArrayList<Integer>> g;
+			
 			for(int i=0;i<4;i++) {
 				if(i<2) {
 					a = i*2 -1;
@@ -94,6 +111,7 @@ public class Capture {
 	}
 	//returns whether it's whites turn or black's
 	public boolean kill(Pair p,int x, int y,boolean blackturn, GameObject stone) {
+		//the boolean here is opposite of who just played e.g. if blackturn == true: white just played
 		if(p == null) {
 			if(!blackturn) boc = group.getWritableCoord(boc);
 			else woc = group.getWritableCoord(woc);
@@ -104,21 +122,34 @@ public class Capture {
 			if(p.x == x && p.y == y) {
 				System.out.println("Suicide");
 				handler.remove(stone);
+				JWCap.setText("White captures: "+game.wcap);
+				JBCap.setText("Black captures: "+game.bcap);
 				return !blackturn;
 				}
 			else {
 				ArrayList<ArrayList<Integer>> g = group.getGroup(p.x, p.y);
 				for(ArrayList<Integer> t: g) {
 					handler.removeStone(t.get(0), t.get(1));
+					if(!blackturn) {
+						game.bcap++;
+						
+					} else {
+						game.wcap++;
+					}
 					c = group.getWritableCoord(c);
 					if(woc.equals(c) || boc.equals(c)) {
 						float tx = group.convertCoordToPoint(t.get(0));
 						float ty = group.convertCoordToPoint(t.get(1));
+						//removes illegal stone
 						handler.remove(stone);
+						
+						//this adds back the stone which has been wrongfully captured
 						if(!blackturn) {
 							handler.add(new WhiteStone(tx,ty,ID.WHITE,game));
+							game.wcap--;
 						} else {
 							handler.add(new BlackStone(tx,ty,ID.BLACK,game));
+							game.bcap--;
 						}
 						System.out.println("KO violation!");
 						return !blackturn;
@@ -126,9 +157,12 @@ public class Capture {
 					}
 				if(!blackturn) boc = group.getWritableCoord(boc);
 				else woc = group.getWritableCoord(woc);
+				JWCap.setText("White captures: "+game.wcap);
+				JBCap.setText("Black captures: "+game.bcap);
 				return blackturn;
 				}
 			}
+		
 		}
 	
 }
