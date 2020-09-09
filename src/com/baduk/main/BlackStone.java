@@ -27,7 +27,7 @@ public class BlackStone extends GameObject{
 		BufferedImage img;
 		try {
 			img = ImageIO.read(new File("C:/Users/Nicolas Schleicher/Documents/black_stone.png"));
-			g.drawImage(img,(int)x-13,(int) y-13, 25,25,game);
+			g.drawImage(img,(int)x-12,(int) y-12, 25,25,game);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

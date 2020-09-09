@@ -38,12 +38,14 @@ public class Game extends JPanel implements ActionListener{
 	private MouseListen mouse;
 	
 	private JButton pbutton;
-	private JLabel JBCap,JWCap;
+	private JButton Jendstone;
+	private JButton Jcancel;
 	
 	public int pass_count = 0;
-	
 	//bcap = number of black stones captured by white
 	public int bcap = 0 ,wcap = 0;
+	
+	public STATE state = STATE.BEGIN;
 	
 	
 	public Game(){
@@ -52,7 +54,7 @@ public class Game extends JPanel implements ActionListener{
 		
 		
 		pbutton = new JButton("Pass");
-		pbutton.setBounds(525,50,100,25);
+		pbutton.setBounds(525,25,125,25);
 		pbutton.setActionCommand("pass");
 		
 		
@@ -70,7 +72,8 @@ public class Game extends JPanel implements ActionListener{
 		pbutton.addActionListener(this);
 		
 		//TODO: Add new handler class for the rectangle and make it more efficient
-		//this.addMouseMotionListener(new MouseMove(handler,this));
+		// 2. Replace black square with opaque version of stone (colour depends on who is playing)
+		this.addMouseMotionListener(new MouseMove(this,mouse,group, handler));
 		
 		
 	}
@@ -103,14 +106,56 @@ public class Game extends JPanel implements ActionListener{
 		
 	}
 	public void actionPerformed(ActionEvent e) {
-		pass_count += 1;
-		if(pass_count == 2) {
-			System.out.println("Game finished!");
-			System.exit(1);
-		} else {
-			boolean turn = !mouse.getTurn();
-			mouse.setTurn(turn);
+		if(state == STATE.BEGIN) {
+			if("pass".equals(e.getActionCommand())) {
+				pass_count += 1;
+				if(pass_count == 2) {
+					System.out.println("Game finished!");
+					pbutton.setVisible(false);
+					System.out.println("Please click on dead stones.");
+					
+					Jendstone = new JButton("Accept Dead Stones");
+					Jendstone.setActionCommand("acceptdead");
+					Jendstone.setBounds(525,25,200,25);
+					
+					
+					Jcancel = new JButton("Cancel and play");
+					Jcancel.setActionCommand("cancel");
+					Jcancel.setBounds(525,55,200,25);
+					
+					add(Jendstone);
+					add(Jcancel);
+					Jendstone.addActionListener(this);
+					Jcancel.addActionListener(this);
+					repaint();
+					
+					state = STATE.DEADSTONE;
+				} else {
+					boolean turn = !mouse.getTurn();
+					mouse.setTurn(turn);
+				}
+			}
+		} else if(state == STATE.DEADSTONE) {
+			if("acceptdead".equals(e.getActionCommand())){
+				state = STATE.END;
+				Jendstone.setVisible(false);
+				Jcancel.setVisible(false);
+			} else if("cancel".equals(e.getActionCommand())) {
+				state = STATE.BEGIN;
+				pbutton.setVisible(true);
+				Jendstone.setVisible(false);
+				Jcancel.setVisible(false);
+				
+			}
+		} else if(state == STATE.END) {
+			
 		}
+	}
+	public void setSTATE(STATE state) {
+		this.state = state;
+	}
+	public STATE getSTATE() {
+		return state;
 	}
 	
 }

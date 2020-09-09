@@ -4,7 +4,8 @@ import java.awt.Graphics;
 import java.util.LinkedList;
 
 public class Handler {
-	LinkedList<GameObject>  object= new LinkedList<GameObject>(); 
+	LinkedList<GameObject>  object= new LinkedList<GameObject>();
+	LinkedList<GameObject>  opobject = new LinkedList<GameObject>();
 	
 	private Group group;
 	
@@ -44,6 +45,9 @@ public class Handler {
 	}
 	public void render(Graphics g) {
 		for(GameObject temp: object) {
+			temp.render(g);
+		}
+		for(GameObject temp: opobject) {
 			temp.render(g);
 		}
 	}
