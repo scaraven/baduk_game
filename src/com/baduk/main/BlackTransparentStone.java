@@ -7,9 +7,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class BlackOpaqueStone extends GameObject{
+public class BlackTransparentStone extends GameObject{
 
-	public BlackOpaqueStone(float x, float y, ID id) {
+	public BlackTransparentStone(float x, float y, ID id) {
 		super(x, y, id);
 		// TODO Auto-generated constructor stub
 	}

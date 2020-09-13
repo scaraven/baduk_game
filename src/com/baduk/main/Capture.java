@@ -12,6 +12,7 @@ public class Capture {
 	private ArrayList<ArrayList<Integer>> woc, c,boc;
 	
 	private int bcap,wcap = 0;
+	private int rows = 0;
 	private JLabel JBCap,JWCap;
 	
 	
@@ -20,9 +21,11 @@ public class Capture {
 		this.handler = handler;
 		this.game = game;
 		
-		boc = group.init2DList(19, 19);
-		woc = group.init2DList(19, 19);
-		c = group.init2DList(19, 19);
+		this.rows = game.rows;
+		
+		boc = group.init2DList(rows,rows);
+		woc = group.init2DList(rows,rows);
+		c = group.init2DList(rows,rows);
 		
 		JBCap = new JLabel();
 		JBCap.setBounds(550,100, 100,25);
@@ -31,6 +34,9 @@ public class Capture {
 		JWCap = new JLabel();
 		JWCap.setBounds(550,150,100,25);
 		JWCap.setText("White captures: "+wcap);
+		
+		JBCap.setOpaque(true);
+		JWCap.setOpaque(true);
 		
 		game.add(JWCap);
 		game.add(JBCap);
@@ -50,9 +56,9 @@ public class Capture {
 					b = i*2 - 5;
 					a = 0;
 				}
-				if(x+a <0 || x+a > 18) {
+				if(x+a <0 || x+a > (rows)-1) {
 					
-				} else if (y+b < 0 || y+b > 18) {
+				} else if (y+b < 0 || y+b > (rows-1)) {
 					
 				}//Actual code here
 				else if(coord.get(x+a).get(y+b) == (3-value)) {
@@ -90,9 +96,9 @@ public class Capture {
 					b = i*2 - 5;
 					a = 0;
 				}
-				if(tx+a <0 || tx+a > 18) {
+				if(tx+a <0 || tx+a > (rows-1)) {
 					
-				} else if (ty+b < 0 || ty+b > 18) {
+				} else if (ty+b < 0 || ty+b > (rows-1)) {
 					
 				}
 				else if(coord.get(tx+a).get(ty+b) == 0) {

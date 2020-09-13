@@ -19,14 +19,19 @@ public class MouseMove implements  MouseMotionListener{
 	
 	private int ox = 0,oy = 0;
 	private int i = 0,j=0;
+	private int rows;
 	
 	public MouseMove(Game game, MouseListen mouse, Group group, Handler handler) {
 		this.game = game;
 		this.group = group;
 		this.mouse = mouse;
 		this.handler = handler;
+		
+		this.rows = game.rows;
 		coord = new ArrayList<>();
-		coord = group.init2DList(19, 19);
+		
+		
+		coord = group.init2DList(rows,rows);
 	}
 	
 
@@ -49,9 +54,9 @@ public class MouseMove implements  MouseMotionListener{
 		int x = group.convertPointToCoord(bx);
 		int y = group.convertPointToCoord(by);
 		
-		if(x > 18 
+		if(x > (rows-1)
 			|| x < 0 
-			|| y > 18
+			|| y > (rows-1)
 			|| y < 0) {
 			handler.opobject.remove(r);
 			return;
@@ -71,9 +76,9 @@ public class MouseMove implements  MouseMotionListener{
 				}
 				
 				if(mouse.getTurn() == true) {
-					r = new BlackOpaqueStone(bx,by,ID.OPAQUEBLACK);
+					r = new BlackTransparentStone(bx,by,ID.TRANSPARENTBLACK);
 				} else {
-					r = new WhiteOpaqueStone(bx,by,ID.OPAQUEWHITE);
+					r = new WhiteTransparentStone(bx,by,ID.TRANSPARENTWHITE);
 				}
 				
 				handler.opobject.add(r);

@@ -1,13 +1,11 @@
 package com.baduk.main;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Group {
 	
-	private Random r =  new Random();
 	
-	private int rows = 19;
+	private int rows = 9;
 	private ArrayList<ArrayList<Integer>> coord = new ArrayList<>(rows);
 	private ArrayList<ArrayList<Integer>>keeper;
 	
@@ -43,7 +41,7 @@ public class Group {
 					a = i*2-1; // a = 1 or -1
 					b = 0;
 					}
-				if(x+a < 0 || x+a > 18 || y+b < 0 || y+b > 18) {
+				if(x+a < 0 || x+a > (rows-1) || y+b < 0 || y+b > (rows-1)) {
 					
 				}
 				else if(coord.get(x+a).get(y+b) == value) {

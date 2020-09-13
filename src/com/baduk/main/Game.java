@@ -41,6 +41,8 @@ public class Game extends JPanel implements ActionListener{
 	private JButton Jendstone;
 	private JButton Jcancel;
 	
+	public int rows = 9;
+	
 	public int pass_count = 0;
 	//bcap = number of black stones captured by white
 	public int bcap = 0 ,wcap = 0;
@@ -86,7 +88,7 @@ public class Game extends JPanel implements ActionListener{
 	}
 	private void addBackground(Graphics g) {
 		try {
-			BufferedImage img = ImageIO.read(new File("C:/Users/Nicolas Schleicher/Downloads/baduk_board.png"));
+			BufferedImage img = ImageIO.read(new File("C:/Users/Nicolas Schleicher/Documents/baduk_board-9x9.png"));
 			WIDTH = img.getWidth();
 			HEIGHT = img.getHeight();
 			

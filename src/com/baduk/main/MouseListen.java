@@ -20,7 +20,7 @@ public class MouseListen extends MouseAdapter{
 		this.lib = lib;
 		this.cap =cap;
 		
-		score = new Score(lib);
+		score = new Score(lib,handler);
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -30,7 +30,7 @@ public class MouseListen extends MouseAdapter{
 		float bx = (Math.round((x-16)/26)*26)+16;
 		float by = (Math.round((y-16)/26)*26)+16;
 		
-		if(x > 500 || x < 0 || y > 500 || y < 0) return;
+		if(x > 238 || x < 0 || y > 238 || y < 0) return;
 		
 		if(game.getSTATE() == STATE.BEGIN) {
 			gameCapture(e,bx,by);
@@ -39,6 +39,7 @@ public class MouseListen extends MouseAdapter{
 			int tx = lib.convertPointToCoord(bx);
 			int ty = lib.convertPointToCoord(by);
 			score.addDeadStone(tx, ty);
+			game.repaint();
 		}
 	}
 	public boolean getTurn() {

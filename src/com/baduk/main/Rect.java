@@ -5,7 +5,9 @@ import java.awt.Graphics;
 
 public class Rect extends GameObject{
 
-	public Rect(float x,float  y, ID id) {
+	private Color color;
+		
+	public Rect(float x,float  y, ID id, Color color) {
 		super(x, y, id);
 	}
 
@@ -16,7 +18,7 @@ public class Rect extends GameObject{
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.black);
+		g.setColor(color);
 		g.fillRect((int)x-6,(int)y-6,12,12);
 		
 	}
