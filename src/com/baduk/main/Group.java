@@ -80,13 +80,13 @@ public class Group {
 				if(size == 0) {
 					return group;
 				}
-				x = keeper.get(size-1).get(0);
-				y = keeper.get(size-1).get(1);
+				nx = keeper.get(size-1).get(0);
+				ny = keeper.get(size-1).get(1);
 				end = false;
 				if(!checkGroup(x,y,group)) {	
 					ArrayList<Integer> temp = new ArrayList<>();
-					temp.add(x);
-					temp.add(y);
+					temp.add(nx);
+					temp.add(ny);
 					group.add(temp);
 				}
 				keeper.remove(size-1);

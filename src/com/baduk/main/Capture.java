@@ -28,11 +28,11 @@ public class Capture {
 		c = group.init2DList(rows,rows);
 		
 		JBCap = new JLabel();
-		JBCap.setBounds(550,100, 100,25);
+		JBCap.setBounds(550,100, 125,25);
 		JBCap.setText("Black captures: "+bcap);
 		
 		JWCap = new JLabel();
-		JWCap.setBounds(550,150,100,25);
+		JWCap.setBounds(550,150,125,25);
 		JWCap.setText("White captures: "+wcap);
 		
 		JBCap.setOpaque(true);
