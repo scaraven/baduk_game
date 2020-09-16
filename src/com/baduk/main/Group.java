@@ -262,7 +262,11 @@ public class Group {
 		}
 		return coord;
 	}
-	public void addCoord(float bx,float by, int value) {
+	public void setCoord(int x, int y, int value) {
+		coord.get(x).set(y, value);
+		
+	}
+	public void addCoord(float bx, float by, int value) {
 		int x = convertPointToCoord(bx);
 		int y = convertPointToCoord(by);
 		coord.get(x).set(y, value);

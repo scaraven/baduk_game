@@ -43,53 +43,55 @@ public class MouseMove implements  MouseMotionListener{
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		//get Mouse co-ord
-		float ex = e.getX();
-		float ey = e.getY();
-		
-		//Find the closest valid point
-		float bx = (Math.round((ex-15)/26)*26)+16;
-		float by = (Math.round((ey-15)/26)*26)+16;
-		
-		int x = group.convertPointToCoord(bx);
-		int y = group.convertPointToCoord(by);
-		
-		if(x > (rows-1)
-			|| x < 0 
-			|| y > (rows-1)
-			|| y < 0) {
-			handler.opobject.remove(r);
-			return;
-		}
-		
-		
-		coord = group.getWritableCoord(coord);
-		
-		//Checks if the position is an empty space
-		if(coord.get(x).get(y) == 0) {
+		if(game.state == STATE.BEGIN) {
+			//get Mouse co-ord
+			float ex = e.getX();
+			float ey = e.getY();
 			
-			if(ox != x || oy != y) {
-				try {
-					handler.opobject.remove(r);
-				} catch(Exception error) {
+			//Find the closest valid point
+			float bx = (Math.round((ex-15)/26)*26)+16;
+			float by = (Math.round((ey-15)/26)*26)+16;
+			
+			int x = group.convertPointToCoord(bx);
+			int y = group.convertPointToCoord(by);
+			
+			if(x > (rows-1)
+				|| x < 0 
+				|| y > (rows-1)
+				|| y < 0) {
+				handler.opobject.remove(r);
+				return;
+			}
+			
+			
+			coord = group.getWritableCoord(coord);
+			
+			//Checks if the position is an empty space
+			if(coord.get(x).get(y) == 0) {
+				
+				if(ox != x || oy != y) {
+					try {
+						handler.opobject.remove(r);
+					} catch(Exception error) {
+						
+					}
 					
-				}
-				
-				if(mouse.getTurn() == true) {
-					r = new BlackTransparentStone(bx,by,ID.TRANSPARENTBLACK);
-				} else {
-					r = new WhiteTransparentStone(bx,by,ID.TRANSPARENTWHITE);
-				}
-				
-				handler.opobject.add(r);
-				ox = x;
-				oy = y;
-				
-			} 
-		} else {
-			handler.opobject.remove(r);
+					if(mouse.getTurn() == true) {
+						r = new BlackTransparentStone(bx,by,ID.TRANSPARENTBLACK);
+					} else {
+						r = new WhiteTransparentStone(bx,by,ID.TRANSPARENTWHITE);
+					}
+					
+					handler.opobject.add(r);
+					ox = x;
+					oy = y;
+					
+				} 
+			} else {
+				handler.opobject.remove(r);
+			}
+		game.repaint();
 		}
-	game.repaint();
 			
 			
 			

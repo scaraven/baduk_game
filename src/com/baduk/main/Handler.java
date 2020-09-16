@@ -43,6 +43,16 @@ public class Handler {
 			}
 		}
 	}
+	public void removeTransparentStone(int x, int y) {
+		for(GameObject temp: opobject) {
+			int tx = group.convertPointToCoord(temp.getX());
+			int ty = group.convertPointToCoord(temp.getY());
+			if(tx == x && ty == y) {
+				opobject.remove(temp);
+				return;
+			}
+		}
+	}
 	public void render(Graphics g) {
 		for(GameObject temp: object) {
 			temp.render(g);

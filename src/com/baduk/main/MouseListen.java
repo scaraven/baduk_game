@@ -2,6 +2,7 @@ package com.baduk.main;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class MouseListen extends MouseAdapter{
 	
@@ -14,13 +15,16 @@ public class MouseListen extends MouseAdapter{
 	private Score score;
 	
 	
+	
 	public MouseListen(Handler handler,Game game,Group lib,Capture cap) {
 		this.handler = handler;
 		this.game = game;
 		this.lib = lib;
 		this.cap =cap;
 		
-		score = new Score(lib,handler);
+		score = new Score(lib,handler,game);
+		
+		
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -35,7 +39,8 @@ public class MouseListen extends MouseAdapter{
 		if(game.getSTATE() == STATE.BEGIN) {
 			gameCapture(e,bx,by);
 		} else if(game.getSTATE() == STATE.DEADSTONE){
-			
+			ArrayList<ArrayList<Integer>> coord = new ArrayList<>();
+			coord = lib.getCoord();
 			int tx = lib.convertPointToCoord(bx);
 			int ty = lib.convertPointToCoord(by);
 			score.addDeadStone(tx, ty);
