@@ -89,6 +89,15 @@ public class Score {
 								}
 							}
 						}
+						//if we have white territory next to an alive black stone or viceversa
+						else if(coord.get(x+a).get(y+b) == (5-value)) {
+							ArrayList<ArrayList<Integer>> g = group.getGroup(x+a,y+b);
+							for(ArrayList<Integer> t:g) {
+								coord.get(t.get(0)).set(t.get(1), 7);
+								handler.removeRectStone(t.get(0),t.get(1));
+								handler.rectobject.add(new Rect(group.convertCoordToPoint(t.get(0)),group.convertCoordToPoint(t.get(1)),ID.RECT,Color.blue));
+							}
+						}
 					}
 				}
 			}
