@@ -16,13 +16,12 @@ public class MouseListen extends MouseAdapter{
 	
 	
 	
-	public MouseListen(Handler handler,Game game,Group lib,Capture cap) {
+	public MouseListen(Handler handler,Game game,Group lib,Capture cap,Score score) {
 		this.handler = handler;
 		this.game = game;
 		this.lib = lib;
 		this.cap =cap;
-		
-		score = new Score(lib,handler,game);
+		this.score = score;
 		
 		
 	}

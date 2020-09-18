@@ -6,6 +6,7 @@ import java.util.LinkedList;
 public class Handler {
 	LinkedList<GameObject>  object= new LinkedList<GameObject>();
 	LinkedList<GameObject>  opobject = new LinkedList<GameObject>();
+	LinkedList<GameObject>  rectobject = new LinkedList<GameObject>();
 	
 	private Group group;
 	
@@ -53,11 +54,24 @@ public class Handler {
 			}
 		}
 	}
+	public void removeRectStone(int x, int y) {
+		for(GameObject temp: rectobject) {
+			int tx = group.convertPointToCoord(temp.getX());
+			int ty = group.convertPointToCoord(temp.getY());
+			if(tx == x && ty == y) {
+				rectobject.remove(temp);
+				return;
+			}
+		}
+	}
 	public void render(Graphics g) {
 		for(GameObject temp: object) {
 			temp.render(g);
 		}
 		for(GameObject temp: opobject) {
+			temp.render(g);
+		}
+		for(GameObject temp: rectobject) {
 			temp.render(g);
 		}
 	}

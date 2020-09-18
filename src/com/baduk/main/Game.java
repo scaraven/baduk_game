@@ -31,11 +31,17 @@ public class Game extends JPanel implements ActionListener{
 	 */
 	private static final long serialVersionUID = 3992438100352550118L;
 	
+	//INCORRECT
 	private static int WIDTH=500,HEIGHT=500;
+	
+	private static float komi = 7.5f;
+	
+	
 	private Handler handler;
 	private Group group;
 	private Capture cap;
 	private MouseListen mouse;
+	public Score score;
 	
 	private JButton pbutton;
 	private JButton Jendstone;
@@ -64,12 +70,13 @@ public class Game extends JPanel implements ActionListener{
 		group = new Group();
 		handler = new Handler(group);
 		cap = new Capture(handler,group, this);
+		score = new Score(group,handler, this);
 		
 		new Window(this);
 		this.add(pbutton);
 		System.out.println(this.getWidth());
 		
-		mouse = new MouseListen(handler,this,group,cap);
+		mouse = new MouseListen(handler,this,group,cap,score);
 		this.addMouseListener(mouse);
 		pbutton.addActionListener(this);
 		
@@ -150,7 +157,7 @@ public class Game extends JPanel implements ActionListener{
 				
 			}
 		} else if(state == STATE.END) {
-			
+			score.calcScore(komi);
 		}
 	}
 	public void setSTATE(STATE state) {

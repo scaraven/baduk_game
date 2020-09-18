@@ -83,7 +83,7 @@ public class Group {
 				nx = keeper.get(size-1).get(0);
 				ny = keeper.get(size-1).get(1);
 				end = false;
-				if(!checkGroup(x,y,group)) {	
+				if(!checkGroup(nx,ny,group)) {	
 					ArrayList<Integer> temp = new ArrayList<>();
 					temp.add(nx);
 					temp.add(ny);

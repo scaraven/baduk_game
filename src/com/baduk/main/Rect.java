@@ -9,6 +9,7 @@ public class Rect extends GameObject{
 		
 	public Rect(float x,float  y, ID id, Color color) {
 		super(x, y, id);
+		this.color = color;
 	}
 
 	@Override
@@ -19,7 +20,7 @@ public class Rect extends GameObject{
 	@Override
 	public void render(Graphics g) {
 		g.setColor(color);
-		g.fillRect((int)x-6,(int)y-6,12,12);
+		g.fillRect((int)x-4,(int)y-4,8,8);
 		
 	}
 	public ID getID() {
