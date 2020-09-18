@@ -149,7 +149,6 @@ public class Game extends JPanel implements ActionListener{
 				state = STATE.END;
 				Jendstone.setVisible(false);
 				Jcancel.setVisible(false);
-				System.out.println("STATE = END");
 				score.assignTerritory(komi);
 				repaint();
 			} else if("cancel".equals(e.getActionCommand())) {
@@ -160,7 +159,6 @@ public class Game extends JPanel implements ActionListener{
 				
 			}
 		} else if(state == STATE.END) {
-			System.out.println("STATE = END");
 			score.assignTerritory(komi);
 			repaint();
 		}

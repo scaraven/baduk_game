@@ -20,7 +20,7 @@ public class Rect extends GameObject{
 	@Override
 	public void render(Graphics g) {
 		g.setColor(color);
-		g.fillRect((int)x-3,(int)y-3,8,8);
+		g.fillRect((int)x-5,(int)y-5,8,8);
 		
 	}
 	public ID getID() {

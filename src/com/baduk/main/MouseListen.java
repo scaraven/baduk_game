@@ -60,7 +60,6 @@ public class MouseListen extends MouseAdapter{
 		
 		//checks if a stone already exists on that point
 		if(handler.isExists(bx, by)){
-			System.out.println("Exists!");
 		}
 		else {
 			game.pass_count = 0;
