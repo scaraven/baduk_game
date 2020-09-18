@@ -53,7 +53,7 @@ public class Score {
 		}
 		
 	}
-	public void assignTerritory(float komi) {
+	public void assignTerritory() {
 		int a=0,b=0;
 		
 		ArrayList<ArrayList<Integer>> coord = group.getCoord();
@@ -101,6 +101,37 @@ public class Score {
 					}
 				}
 			}
+		}
+		
+	}
+	public void countScore(float komi) {
+		
+		ArrayList<ArrayList<Integer>> coord = group.getCoord();
+		
+		bscore += game.bcap;
+		wscore += game.wcap;
+		wscore += komi;
+		
+		for(int x=0;x<coord.size();x++) {
+			for(int y=0;y<coord.size();y++) {
+				int value = coord.get(x).get(y);
+				if(value == 3) {
+					bscore +=1;
+				} else if(value == 4) {
+					wscore +=1;
+				} else if(value == 5) {
+					bscore += 2;
+				} else if(value == 6) {
+					wscore +=2;
+				}
+			}
+		}
+		if(bscore > wscore) {
+			System.out.println("Black wins by - "+(bscore-wscore));
+			
+		}
+		else if(wscore > bscore){
+			System.out.println("White wins by - "+(wscore - bscore));
 		}
 		
 	}
