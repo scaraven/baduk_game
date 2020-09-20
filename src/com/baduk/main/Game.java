@@ -17,9 +17,6 @@ import javax.swing.JPanel;
  * 
  * 
  * @author Nicolas Schleicher
- *
- *TODO: 
- Add capturing system
  */
 
 public class Game extends JPanel implements ActionListener{
@@ -46,6 +43,8 @@ public class Game extends JPanel implements ActionListener{
 	private JButton pbutton;
 	private JButton Jendstone;
 	private JButton Jcancel;
+	private JButton Jundo;
+	private JButton resign;
 	
 	public int rows = 9;
 	
@@ -65,7 +64,13 @@ public class Game extends JPanel implements ActionListener{
 		pbutton.setBounds(525,25,125,25);
 		pbutton.setActionCommand("pass");
 		
+		Jundo = new JButton("Undo");
+		Jundo.setBounds(525, 55, 125, 25);
+		Jundo.setActionCommand("undo");
 		
+		resign = new JButton("Resign");
+		resign.setBounds(375, 25, 125, 25);
+		resign.setActionCommand("resign");
 		
 		group = new Group();
 		handler = new Handler(group);
@@ -74,11 +79,14 @@ public class Game extends JPanel implements ActionListener{
 		
 		new Window(this);
 		this.add(pbutton);
-		System.out.println(this.getWidth());
+		this.add(Jundo);
+		this.add(resign);
 		
 		mouse = new MouseListen(handler,this,group,cap,score);
 		this.addMouseListener(mouse);
 		pbutton.addActionListener(this);
+		Jundo.addActionListener(this);
+		resign.addActionListener(this);
 		
 		//TODO: Add new handler class for the rectangle and make it more efficient
 		// 2. Replace black square with opaque version of stone (colour depends on who is playing)
@@ -143,6 +151,22 @@ public class Game extends JPanel implements ActionListener{
 					boolean turn = !mouse.getTurn();
 					mouse.setTurn(turn);
 				}
+			}
+			else if("undo".equals(e.getActionCommand())) {
+				
+				handler.object.remove(handler.object.size()-1);
+				boolean turn = !mouse.getTurn();
+				mouse.setTurn(turn);
+				repaint();
+			}
+			else if("resign".equals(e.getActionCommand())) {
+				boolean turn = mouse.getTurn();
+				if(turn) {
+					System.out.println("W+R");
+				} else {
+					System.out.println("B+R");
+				}
+				state = STATE.END;
 			}
 		} else if(state == STATE.DEADSTONE) {
 			if("acceptdead".equals(e.getActionCommand())){
