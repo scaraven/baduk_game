@@ -1,1 +1,1 @@
-A game of baduk which I intend to later become an ai for solving tsumego problems
+A 9x9 go ai to play against (a small project so I can play with ai there are countless better ai to play against)
