@@ -53,7 +53,7 @@ public class MouseListen extends MouseAdapter{
 		blackturn = turn;
 	}
 	private void gameCapture(MouseEvent e,float bx,float by) {
-		Pair p;
+		ArrayList<Pair> p;
 		
 		GameObject stone;
 		
@@ -76,10 +76,22 @@ public class MouseListen extends MouseAdapter{
 			
 			}
 			
+			
 			int tx = lib.convertPointToCoord(bx);
 			int ty = lib.convertPointToCoord(by);
-			if(cap.kill(p, tx, ty, blackturn, stone)) blackturn = true;
-			else blackturn = false;
+			if(p == null) {
+				if(cap.kill(null, tx, ty, blackturn, stone)) blackturn = true;
+				else blackturn = false;
+			}
+			else {
+				for(Pair pair: p) {
+					if(cap.kill(pair, tx, ty, blackturn, stone)) blackturn = true;
+					else blackturn = false;
+				}
+			}
+			
+			
+			
 		}
 		game.repaint();
 	}

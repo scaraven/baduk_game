@@ -42,12 +42,15 @@ public class Capture {
 		game.add(JBCap);
 	}
 	//returns the coord of stone which is in the group to be captured - otherwise it returns null
-	public Pair isCaptured(float bx,float by,int value) {
+	public ArrayList<Pair> isCaptured(float bx,float by,int value) {
 			int a=0,b=0;
 			int x = group.convertPointToCoord(bx);
 			int y = group.convertPointToCoord(by);
 			ArrayList<ArrayList<Integer>> coord = group.getCoord();
 			
+			boolean captured = false;
+			
+			ArrayList<Pair> p = new ArrayList<>();
 			for(int i=0;i<4;i++) {
 				if(i<2) {
 					a = i*2 -1;
@@ -63,14 +66,24 @@ public class Capture {
 				}//Actual code here
 				else if(coord.get(x+a).get(y+b) == (3-value)) {
 					if(countLiberties(x+a,y+b,3-value) == 0) {
-						return new Pair(x+a,y+b);
+						
+						//add captured stone to a Pair[] list
+						p.add(new Pair(x+a,y+b));
+						captured = true;
 					}
 				}
 			}
 			//checks for suicide, if so then return the coord of the stone that has been played
-			if(countLiberties(x,y,value) == 0) {
-				return new Pair(x,y);
+			if(countLiberties(x,y,value) == 0 && !captured) {
+				ArrayList<Pair> c = new ArrayList<>();
+				c.add(new Pair(x,y));
+				return c;
 			}
+			//if something has been captured
+			if(captured) {
+				return p;
+			}
+			
 			//nothing happened so null is returned
 			return null;
 		
