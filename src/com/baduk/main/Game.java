@@ -103,7 +103,7 @@ public class Game extends JPanel implements ActionListener{
 	}
 	private void addBackground(Graphics g) {
 		try {
-			BufferedImage img = ImageIO.read(new File("C:/Users/Nicolas Schleicher/Documents/baduk_board-9x9.png"));
+			BufferedImage img = ImageIO.read(new File("\\images\\baduk_board-9x9.png"));
 			WIDTH = img.getWidth();
 			HEIGHT = img.getHeight();
 			

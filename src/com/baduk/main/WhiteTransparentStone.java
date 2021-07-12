@@ -24,7 +24,7 @@ public class WhiteTransparentStone extends GameObject{
 	public void render(Graphics g) {
 		BufferedImage img;
 		try {
-			img = ImageIO.read(new File("C:/Users/Nicolas Schleicher/Documents/white_stone2_opaque.png"));
+			img = ImageIO.read(new File("\\images\\white_stone2_opaque.png"));
 			g.drawImage(img,(int)x-12,(int) y-12, 25,25,game);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
